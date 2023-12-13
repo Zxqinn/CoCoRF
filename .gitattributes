@@ -1,1 +1,2 @@
 output/gru_model/*.h5 filter=lfs diff=lfs merge=lfs -text
+/output/attention_model/*.h5 filter=lfs diff=lfs merge=lfs -text
