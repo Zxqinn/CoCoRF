@@ -42,7 +42,7 @@ Run the following command for filtering：
 python filtering.py
 ```
 
-The filtered and processed dataset is saved in ```./processed_dataset/```. We have pre-run this command and generated a processed dataset in this directory. Here we have uploaded only the processed data from the attention-based VAE model, for other models and their processing generated data click [Alt]([URL](https://github.com/Zxqinn/CSNMF/tree/main) "here")here to download.
+The filtered and processed dataset is saved in ```./processed_dataset/```. We have pre-run this command and generated a processed dataset in this directory. Here we have uploaded only the processed data from the attention-based VAE model, for other models and their processing generated data click [Alt]([https://github.com/Zxqinn/CSNMF/tree/main] "here")here to download.
 
 ## Train the code search model on the filtered dataset.
 
