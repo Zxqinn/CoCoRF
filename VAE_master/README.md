@@ -4,5 +4,6 @@ We have provided a sample of the real query corpus collected from Stack Overflow
 
 ## Train
 To train our model:
-
-'''python main.py --train_data_dir ./data/python'''
+'''python
+python main.py --train_data_dir ./data/python
+'''
