@@ -16,6 +16,7 @@ The primary structure of the project is as follows:
 - filtering.py          # our data filtering and processing script for DeepCS
 - gru_model.py          # GRU-based model structure
 - modules.py            # the modules for DeepCS
+- python_structured.py  # extracting python language features
 - repr_code.py          # the script to evaluate DeepCS model
 - train.py              # the script to train DeepCS model
 - utils.py              # utility functions for DeepCS
