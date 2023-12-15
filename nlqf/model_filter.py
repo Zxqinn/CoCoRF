@@ -12,7 +12,7 @@ import nltk
 nltk.download('wordnet')
 nltk.download('omw-1.4')
 from nltk.stem import WordNetLemmatizer 
-from model import *
+from multihead_model import *
 
 
 
