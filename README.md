@@ -1,5 +1,5 @@
 # CSNMF
-We use the model generated from the attention-based VAE training to filter the raw data, then train a new code search model on the filtered dataset and evaluate the performance of the trained model.
+We use the model generated from the self-attention-based VAE training to filter the raw data, then train a new code search model on the filtered dataset and evaluate the performance of the trained model.
 
 The primary structure of the project is as follows:
 
