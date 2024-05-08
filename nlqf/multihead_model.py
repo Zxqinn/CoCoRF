@@ -24,15 +24,15 @@ def embed ():
 # Encode into Z with mu and log_var
 
 class Encoder(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size,  dropout_p=0.5, cuda=True):
+    def __init__(self, input_size, emb_size, output_size, dropout_p=0.1, cuda=True):
         super(Encoder, self).__init__()
         self.cuda = cuda
-        self.hidden_size = hidden_size
-        self.embed = nn.Embedding(input_size, hidden_size)
+        self.emb_size = emb_size
+        self.embed = nn.Embedding(input_size, emb_size)
         # 使用预训练词向量
-        #self.embed = nn.Embedding.from_pretrained(embed())
-        self.self_attention = nn.MultiheadAttention(hidden_size, num_heads=1,dropout=dropout_p)
-        self.o2p = nn.Linear(hidden_size, output_size * 2)
+        # self.embed = nn.Embedding.from_pretrained(embed())
+        self.self_attention = nn.MultiheadAttention(emb_size, num_heads=1, dropout=dropout_p)
+        self.o2p = nn.Linear(emb_size, output_size * 2)
 
     def forward(self, input):
         embedded = self.embed(input)
@@ -58,24 +58,22 @@ class Encoder(nn.Module):
 
 
 class Decoder(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size, n_layers=1, dropout_p=0.5, cuda=True):
+    def __init__(self, input_size, emb_size, output_size, n_layers=1, dropout_p=0.1, cuda=True):
         super(Decoder, self).__init__()
         self.SOS = 1
         self.cuda = cuda
         self.embed = nn.Embedding(output_size, input_size)
-        # self.embed = nn.Embedding(output_size, hidden_size)
         # 使用预训练词向量
         # self.embed = nn.Embedding.from_pretrained(embed())
         self.output_size = output_size
         self.n_layers = n_layers
 
-        self.self_attention = nn.MultiheadAttention(input_size, num_heads=1,dropout=dropout_p)
+        self.self_attention = nn.MultiheadAttention(input_size, num_heads=1, dropout=dropout_p)
 
         self.output_projection = nn.Sequential(
-            nn.Linear(input_size, hidden_size),
-            # nn.Linear(hidden_size, hidden_size),
+            nn.Linear(input_size, emb_size),
             nn.Tanh(),
-            nn.Linear(hidden_size, input_size)
+            nn.Linear(emb_size, input_size)
         )
         self.generator = nn.Linear(input_size, output_size)
 
@@ -110,7 +108,7 @@ class Decoder(nn.Module):
 
     def step(self, hidden, token):
         token_embedding = self.embed(token.unsqueeze(0))
-        hidden, attn_output_weights = self.self_attention(token_embedding,hidden,hidden)
+        hidden, attn_output_weights = self.self_attention(token_embedding, hidden, hidden)
         output = self.output_projection(hidden.squeeze(0))
         token_logit = self.generator(output)
         return hidden, token_logit
@@ -121,10 +119,10 @@ class Decoder(nn.Module):
 
 
 class VAE(nn.Module):
-    def __init__(self, vocab_size, hidden_size, emb_size, dropout=0, cuda=True):
+    def __init__(self, vocab_size, emb_size, output_size, dropout=0, n_layers=1, cuda=True):
         super(VAE, self).__init__()
-        self.encoder = Encoder(vocab_size, hidden_size, emb_size, dropout_p=dropout, cuda=cuda)
-        self.decoder = Decoder(emb_size, hidden_size, vocab_size, dropout_p=dropout, cuda=cuda)
+        self.encoder = Encoder(vocab_size, emb_size, output_size, dropout_p=dropout, cuda=cuda)
+        self.decoder = Decoder(output_size, emb_size, vocab_size, dropout_p=dropout, n_layers=n_layers, cuda=cuda)
 
     def forward(self, inputs):
         m, l, z = self.encoder(inputs)
