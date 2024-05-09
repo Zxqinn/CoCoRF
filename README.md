@@ -1,5 +1,5 @@
-# CSNMF
-We use the model generated from the self-attention-based VAE training to filter the raw data, then train a new code search model on the filtered dataset and evaluate the performance of the trained model.
+# CoCoRF
+We propose a comment-based data refinement framework utilizing unsupervised and supervised co-learning. It applies manually defined rules for syntax filtering and utilizes the WTFF mining algorithm to construct bootstrap query corpus for training the TVAE model to further semantic filtering.
 
 The primary structure of the project is as follows:
 
