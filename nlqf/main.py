@@ -144,10 +144,10 @@ def args_parser():
     parser.add_argument("--train_data_dir", type=str,
                         default="./data/python")
     parser.add_argument("--save_dir", type=str,
-                        default="./output2/gru_model_256")
+                        default="./output")
 
     parser.add_argument("-ql", "--query_len", type=int, default=20)
-    parser.add_argument("-es", "--emb_size", type=int, default=256)
+    parser.add_argument("-es", "--emb_size", type=int, default=128)
     parser.add_argument("-os", "--output_size", type=int, default=128)
     parser.add_argument("--num_layers", type=int, default=1)
     parser.add_argument("-dp", "--dropout", type=float, default=0.1)
