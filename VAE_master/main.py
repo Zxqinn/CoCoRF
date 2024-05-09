@@ -7,7 +7,7 @@ import numpy as np
 import json
 import os
 from torch.optim import Adam
-from attention_model import *
+from model import *
 from dataset import QueryDataset
 from torch.utils.data import DataLoader
 from torch.nn.utils import clip_grad_norm
@@ -31,7 +31,7 @@ def train(args):
     train_data_loader = DataLoader(
         corpus_train, batch_size=args.batch_size, num_workers=args.num_workers, shuffle=True)
 
-    model = VAE(vocab_size, args.hidden_size, args.emb_size,dropout=args.dropout)
+    model = VAE(vocab_size, args.emb_size, args.output_size,dropout=args.dropout)
     print("Total Parameters:",
           sum([p.nelement() for p in model.parameters()]))
 
@@ -144,11 +144,11 @@ def args_parser():
     parser.add_argument("--train_data_dir", type=str,
                         default="./data/python")
     parser.add_argument("--save_dir", type=str,
-                        default="./output")
+                        default="./output2/gru_model_256")
 
     parser.add_argument("-ql", "--query_len", type=int, default=20)
-    parser.add_argument("-es", "--emb_size", type=int, default=128)
-    parser.add_argument("-hs", "--hidden_size", type=int, default=128)
+    parser.add_argument("-es", "--emb_size", type=int, default=256)
+    parser.add_argument("-os", "--output_size", type=int, default=128)
     parser.add_argument("--num_layers", type=int, default=1)
     parser.add_argument("-dp", "--dropout", type=float, default=0.1)
 
