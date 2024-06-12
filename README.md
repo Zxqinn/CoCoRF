@@ -1,5 +1,5 @@
 # CoCoRF
-We propose a comment-based data refinement framework utilizing unsupervised and supervised co-learning. It applies manually defined rules for syntax filtering and utilizes the WTFF mining algorithm to construct bootstrap query corpus for training the TVAE model to further semantic filtering.
+We propose a comment-based codabase refining framework utilizing unsupervised and supervised co-learning. It applies manually defined rules for syntax filtering and utilizes the WTFF mining algorithm to construct bootstrap query corpus for training the TVAE model to further semantic filtering.
 
 The primary structure of the project is as follows:
 
